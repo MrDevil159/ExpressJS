@@ -27,7 +27,7 @@ app.use(
     saveUninitialized: false,
     store: MongoStore.create(
       {
-        mongoUrl: "mongodb://127.0.0.1:27017/expressjs"
+        mongoUrl: "mongodb+srv://myAtlasDBUser:atlas123@myatlasclusteredu.p3jpgqa.mongodb.net/expressjs?retryWrites=true&w=majority"
       }
     )
   })
