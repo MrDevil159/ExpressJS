@@ -3,6 +3,28 @@ const GithubUser = require('../database/schemas/GithubUser');
 var GitHubStrategy = require('passport-github2').Strategy;
 require('dotenv').config()
 
+passport.serializeUser((user, done) => {
+    console.log('...Serializing user');
+    console.log(user);
+    done(null, user.id)
+});
+
+passport.deserializeUser(async (id, done) => {
+    console.log('...deserializing user');
+    console.log(id);
+
+    try {
+        const user = await GithubUser.findById(id);
+        console.log(user);
+        if(!user) throw new Error('User not found');
+        done(null, user);
+    } catch (error) {
+        console.log(error);
+        done(error, null);
+    }
+})
+
+
 passport.use(new GitHubStrategy({
     clientID: 'eedb7b0de4cfd16f8bba',
     clientSecret: '26697a4c148cff2453c529185054fb503b88e3ac',
